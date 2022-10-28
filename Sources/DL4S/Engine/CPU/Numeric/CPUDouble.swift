@@ -568,7 +568,7 @@ extension Double: CPUNumeric {
         vvtan(dst, src, [Int32(count)])
         #else
         for i in 0 ..< count {
-            dst[i] = tan(src[i])
+            dst[i] = tan_cpu(src[i])
         }
         #endif
     }
