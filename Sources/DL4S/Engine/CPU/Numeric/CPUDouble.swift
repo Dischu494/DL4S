@@ -30,8 +30,26 @@ import Accelerate
 #endif
 #if os(Linux)
 import Glibc
+extension Double {
+    fileprivate static func sqrt_cpu(_ x: Double) -> Double { return SwiftGlibc.sqrt(x) }
+    fileprivate static func exp_cpu(_ x: Double) -> Double { return SwiftGlibc.exp(x) }
+    fileprivate static func log_cpu(_ x: Double) -> Double { return SwiftGlibc.log(x) }
+    fileprivate static func sin_cpu(_ x: Double) -> Double { return SwiftGlibc.sin(x) }
+    fileprivate static func cos_cpu(_ x: Double) -> Double { return SwiftGlibc.cos(x) }
+    fileprivate static func tan_cpu(_ x: Double) -> Double { return SwiftGlibc.tan(x) }
+    fileprivate static func tanh_cpu(_ x: Double) -> Double { return SwiftGlibc.tanh(x) }
+}
 #else
 import Foundation
+extension Double {
+    fileprivate static func sqrt_cpu(_ x: Double) -> Double { return sqrt(x) }
+    fileprivate static func exp_cpu(_ x: Double) -> Double { return exp(x) }
+    fileprivate static func log_cpu(_ x: Double) -> Double { return log(x) }
+    fileprivate static func sin_cpu(_ x: Double) -> Double { return sin(x) }
+    fileprivate static func cos_cpu(_ x: Double) -> Double { return cos(x) }
+    fileprivate static func tan_cpu(_ x: Double) -> Double { return tan(x) }
+    fileprivate static func tanh_cpu(_ x: Double) -> Double { return tanh(x) }
+}
 #endif
 
 extension Double: CPUNumeric {
@@ -458,7 +476,7 @@ extension Double: CPUNumeric {
         vvexp(dst, src, [Int32(count)])
         #else
         for i in 0 ..< count {
-            dst[i] = exp(src[i])
+            dst[i] = exp_cpu(src[i])
         }
         #endif
     }
@@ -472,7 +490,7 @@ extension Double: CPUNumeric {
         vvlog(dst, src, [Int32(count)])
         #else
         for i in 0 ..< count {
-            dst[i] = log(src[i])
+            dst[i] = log_cpu(src[i])
         }
         #endif
     }
@@ -486,7 +504,7 @@ extension Double: CPUNumeric {
         vvtanh(dst, src, [Int32(count)])
         #else
         for i in 0 ..< count {
-            dst[i] = tanh(src[i])
+            dst[i] = tanh_cpu(src[i])
         }
         #endif
     }
@@ -500,7 +518,7 @@ extension Double: CPUNumeric {
         vvsqrt(dst, src, [Int32(count)])
         #else
         for i in 0 ..< count {
-            dst[i] = sqrt(src[i])
+            dst[i] = sqrt_cpu(src[i])
         }
         #endif
     }
@@ -522,7 +540,7 @@ extension Double: CPUNumeric {
         vvsin(dst, src, [Int32(count)])
         #else
         for i in 0 ..< count {
-            dst[i] = sin(src[i])
+            dst[i] = sin_cpu(src[i])
         }
         #endif
     }
@@ -536,7 +554,7 @@ extension Double: CPUNumeric {
         vvcos(dst, src, [Int32(count)])
         #else
         for i in 0 ..< count {
-            dst[i] = cos(src[i])
+            dst[i] = cos_cpu(src[i])
         }
         #endif
     }
