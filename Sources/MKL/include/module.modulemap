@@ -1,5 +1,5 @@
 module MKL [system] {
-    header "/opt/intel/mkl/include/mkl.h"
+    header "/usr/include/mkl/mkl.h"
     header "/opt/intel/ipp/include/ipp.h"
     header "MKL.h"
     
